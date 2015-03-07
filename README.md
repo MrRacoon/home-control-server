@@ -15,7 +15,7 @@ lighting
 `/lighting/off`
 
 ### Change the color of all lifx bulbs
-`/lighting/change/{hue}/{saturation}/{luminecence}/{white}/{fade-time}
+`/lighting/change/{hue}/{saturation}/{luminecence}/{white}/{fade-time}`
 
 * Hue
     * the color of the bulb
@@ -26,8 +26,20 @@ lighting
     * The brightness
 * White
     * White balance for whites
-* fade-time
+* Fade-Time
     * How quickly to transition
 
 ### Change the color of all lifx bulbs
 `/lighting/color/{colorValue}`
+
+color values include: 
+* red
+* orange
+* yellow
+* green
+* cyan
+* blue
+* black
+* purple
+* pink
+* darkPink
