@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Express' });
+  res.json({'Home-Conrol': 'https://github.com/MrRacoon/home-control-server.git'});
 });
 
 module.exports = router;
