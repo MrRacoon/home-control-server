@@ -9,28 +9,28 @@ lighting
 --------
 
 ### Turn on all LIFX bulbs
-`/lighting/on`
+`GET` `/lighting/on`
 
 ### Turn off all LIFX bulbs
-`/lighting/off`
+`GET` `/lighting/off`
 
 ### Change the color of all lifx bulbs
-`/lighting/change/{hue}/{saturation}/{luminecence}/{white}/{fade-time}`
+`POST` `/lighting/color`
 
-* Hue
+* `hue`
     * the color of the bulb
-* Saturation
+* `sat`
     * `0xffff` for color
     * `0x0000` for whites
-* Luminecence
+* `lum`
     * The brightness
-* White
+* `whi`
     * White balance for whites
-* Fade-Time
+* `fad`
     * How quickly to transition
 
 ### Change the color of all lifx bulbs
-`/lighting/color/{colorValue}`
+`GET` `/lighting/color/{colorValue}`
 
 color values include: 
 * red
