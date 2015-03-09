@@ -2,16 +2,22 @@ var express = require('express');
 var router  = express.Router();
 
 var colorMap = {
-    red        : 0x0000
-    , orange   : 0x2000
-    , yellow   : 0x3000
-    , green    : 0x5000
-    , cyan     : 0x8000
-    , blue     : 0x9000
-    , black    : 0xa000
-    , purple   : 0xc000
-    , pink     : 0xd000
-    , darkPink : 0xe000
+    red           : 0x0000
+    , orange      : 0x1800
+    , gold        : 0x2000
+    , yellow      : 0x2400
+    , yellowGreen : 0x3000
+    , green       : 0x5000
+    , cyan        : 0x8000
+    , skyBlue     : 0x9000
+    , blue        : 0x9400
+    , lightBlack  : 0xa000
+    , black       : 0xb000
+    , purple      : 0xc000
+    , pink        : 0xd000
+    , darkPink    : 0xe000
+    , hotPink     : 0xe000
+    , slamon      : 0xf000
 };
 
 defaults = {
@@ -39,40 +45,49 @@ router.get('/off', function(req, res) {
     res.json('lights off');
 });
 
-router.get('/change/:hue/:sat/:lum/:whi/:fad', function(req, res) {
+router.get('/bulbs', function(req, res) {
+    var l  = req.lifx;
+    var bs = l.bulbs;
+    res.json(bs);
+});
+
+router.post('/color', function(req, res) {
     var l = req.lifx;
+    var d = req.body;
     l.lightsColour(
-        req.params.hue || defaults.hue,
-        req.params.sat || defaults.sat,
-        req.params.lum || defaults.lum,
-        req.params.whi || defaults.whi,
-        req.params.fad || defaults.fad
+        d.hue || defaults.hue,
+        d.sat || defaults.sat,
+        d.lum || defaults.lum,
+        d.whi || defaults.whi,
+        d.fad || defaults.fad
     );
-    res.json('Changing Lights');
+    res.json(d);
 });
 
 router.get('/color/:col', function(req, res) {
     var l = req.lifx;
-    l.lightsColour(
+    var d = [
         colorMap[req.params.col] || defaults.hue,
         0xffff || defaults.sat,
         0xffff || defaults.lum,
         0x0dac || defaults.whi,
         0x0000 || defaults.fad
-    );
-    res.json('Changing to color ' + req.params.col);
+    ]
+    l.lightsColour.apply(l, d)
+    res.json(d);
 });
 
 router.get('/colorFade/:col', function(req, res) {
     var l = req.lifx;
-    l.lightsColour(
+    var d = [
         colorMap[req.params.col] || defaults.hue,
         0xffff || defaults.sat,
         0xffff || defaults.lum,
         0x0dac || defaults.whi,
         0x0513 || defaults.fad
-    );
-    res.json('Changing to color ' + req.params.col);
+    ];
+    l.lightsColour.apply(l, d);
+    res.json(d);
 });
 
 module.exports = router;
