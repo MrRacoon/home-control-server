@@ -17,7 +17,7 @@ var colorMap = {
     , pink        : 0xd000
     , darkPink    : 0xe000
     , hotPink     : 0xe000
-    , slamon      : 0xf000
+    , salmon      : 0xf000
 };
 
 defaults = {
@@ -33,24 +33,54 @@ router.get('/', function(req, res) {
     res.json('lighting Control');
 });
 
+/** Turn on the lights
+ *
+ * Try:
+ *  curl -i http://localhost:3000/lighting/on
+ */
 router.get('/on', function(req, res) {
     var l = req.lifx;
     l.lightsOn();
     res.json('lights on');
 });
 
+/** Turn on the lights
+ *
+ * Try:
+ *  curl -i http://localhost:3000/lighting/off
+ */
 router.get('/off', function(req, res) {
     var l = req.lifx;
     l.lightsOff();
     res.json('lights off');
 });
 
+/** Get Bulb Information
+ *
+ * Try:
+ *  curl -i http://localhost:3000/lighting/bulbs
+ */
 router.get('/bulbs', function(req, res) {
     var l  = req.lifx;
     var bs = l.bulbs;
     res.json(bs);
 });
 
+/** Change the color of the lights
+ *
+ * Post a JSON object containing color change information
+ * The expectation is that the number are 16-bit number (i.e. 0xffff)
+ *
+ * JSON options include:
+ *  hue - hue
+ *  sat - saturation
+ *  lum - lum
+ *  whi - white balance (when white colors are chosen throut sat)
+ *  fad - fade-time in miliseconds
+ *
+ * Try:
+ *  curl -i http://localhost:3000/lighting/bulbs
+ */
 router.post('/color', function(req, res) {
     var l = req.lifx;
     var d = req.body;
